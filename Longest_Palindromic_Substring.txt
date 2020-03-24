@@ -4,13 +4,11 @@ public:
         int pos = 0;
         int longest = 1;
         int leng = s.length();
-        if(leng == 0) return "";
+        if(leng < 2) return s;
         int table[leng][leng];
         memset(table, 0, sizeof table);
         for(int i = 0; i < leng; i++)
-        {
             table[i][i] = 1;
-        }
         
         for(int k = 1; k < leng; k++)
         {
