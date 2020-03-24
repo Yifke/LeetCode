@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        int pos = 0;
+        int longest = 1;
+        int leng = s.length();
+        if(leng == 0) return "";
+        int table[leng][leng];
+        memset(table, 0, sizeof table);
+        for(int i = 0; i < leng; i++)
+        {
+            table[i][i] = 1;
+        }
+        
+        for(int k = 1; k < leng; k++)
+        {
+            for(int i = 0; i < leng-k; i++)
+            {
+                if(s.at(i) == s.at(i+k) && table[i+1][i+k-1] == k-1)
+                {
+                    table[i][i+k] = table[i+1][i+k-1] + 2;
+                    longest = k+1;
+                    pos = i;
+                }
+            }
+        }
+        
+        return s.substr(pos, longest);
+    }
+};
