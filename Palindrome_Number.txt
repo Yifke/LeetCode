@@ -10,9 +10,6 @@ public:
             end = end*10 + x%10;
             x = x/10;
         }
-        
-        if(x == end || end/10 == x)
-            return true;
-        return false;
+        return x == end || end/10 == x;
     }
 };
