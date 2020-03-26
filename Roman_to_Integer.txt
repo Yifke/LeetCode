@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int romanToInt(string s) {
+        
+        int leng = s.length();
+        int pos = 0;
+        int value = 0;
+        if(leng == 0)
+            return 0;
+        
+        while(pos+1 < leng)
+        {
+            int front = charToInt(s.at(pos));
+            int end = charToInt(s.at(pos+1));
+            if(front >= end)
+                value += front;
+            else
+                value -= front;
+            pos++;
+        }
+        value += charToInt(s.at(pos));
+        return value;
+    }
+    
+    int charToInt(char letter)
+    {
+        if(letter == 'I')
+            return 1;
+        else if(letter == 'V')
+            return 5;
+        else if(letter == 'X')
+            return 10;
+        else if(letter == 'L')
+            return 50;
+        else if(letter == 'C')
+            return 100;
+        else if(letter == 'D')
+            return 500;
+        else if(letter == 'M')
+            return 1000;
+        return 0;
+    }
+};
