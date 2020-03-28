@@ -4,24 +4,32 @@ public:
         vector<vector<int>> solutions;
         int leng = nums.size();
         sort(nums.begin(), nums.end());
+        if(leng < 3 || nums.at(0) > 0 || nums.at(leng-1) < 0)
+            return solutions;
         
         for(int i = 0; i < leng-2; i++)
         {
             if(i > 0 && nums.at(i) == nums.at(i-1))
                 continue;
+            if(nums.at(i) > 0)
+                return solutions;
             int front = i+1;
             int end = leng-1;
             while(front < end)
             {
-                if(nums.at(i) + nums.at(front) == -nums.at(end))
+                int sum = nums.at(i) + nums.at(front) + nums.at(end);
+                if(sum == 0)
                 {
                     vector<int> sol = {nums.at(i), nums.at(front), nums.at(end)};
                     solutions.push_back(sol);
-                    front++;
-                    while(front < leng && nums.at(front) == nums.at(front-1))
+                    while(front < end && nums.at(front) == nums.at(front+1))
                         front++;
+                    while(front < end && nums.at(end) == nums.at(end-1))
+                        end--;
+                    front++;
+                    end--;
                 }
-                else if(nums.at(i) + nums.at(front) < -nums.at(end))
+                else if(sum < 0)
                     front++;
                 else
                     end--;
