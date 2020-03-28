@@ -1,0 +1,33 @@
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        vector<vector<int>> solutions;
+        int leng = nums.size();
+        sort(nums.begin(), nums.end());
+        
+        for(int i = 0; i < leng-2; i++)
+        {
+            if(i > 0 && nums.at(i) == nums.at(i-1))
+                continue;
+            int front = i+1;
+            int end = leng-1;
+            while(front < end)
+            {
+                if(nums.at(i) + nums.at(front) == -nums.at(end))
+                {
+                    vector<int> sol = {nums.at(i), nums.at(front), nums.at(end)};
+                    solutions.push_back(sol);
+                    front++;
+                    while(front < leng && nums.at(front) == nums.at(front-1))
+                        front++;
+                }
+                else if(nums.at(i) + nums.at(front) < -nums.at(end))
+                    front++;
+                else
+                    end--;
+            }
+        }
+        
+        return solutions;
+    }
+};
