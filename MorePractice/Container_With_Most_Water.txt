@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int width = height.size()-1;
+        int front = 0;
+        int end = width;
+        int maxArea = 0;
+        
+        while(width > 0)
+        {
+            int area = 0;
+            if(height.at(front) <=  height.at(end))
+            {
+                area = height.at(front) * width;
+                front++;
+            }
+            else if(height.at(end) <  height.at(front))
+            {
+                area = height.at(end) * width;
+                end--;
+            }
+            width--;
+            if(area > maxArea)
+                maxArea = area;
+        }
+        
+        return maxArea;
+    }
+};
