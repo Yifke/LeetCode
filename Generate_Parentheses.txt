@@ -1,0 +1,20 @@
+class Solution {
+public:
+    vector<string> sol;
+    vector<string> generateParenthesis(int n) {
+        findString("", n, 0);
+        return sol;
+    }
+    
+    void findString(string str, int left, int right){
+        if(left == 0 && right == 0)
+        {
+            sol.push_back(str);
+            return;
+        }
+        if(left > 0)
+            findString(str + "(", left-1, right+1);
+        if(right > 0)
+            findString(str + ")", left, right-1);
+    }
+};
