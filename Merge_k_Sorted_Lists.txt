@@ -1,0 +1,37 @@
+class Solution {
+public:
+    struct increasingOrder
+    {
+        bool operator()(const ListNode* node1, const ListNode* node2) const
+        {
+            return node1->val >= node2->val;
+        }
+    };
+    
+    ListNode* mergeKLists(vector<ListNode*>& lists) {
+        priority_queue<ListNode*, vector<ListNode*>, increasingOrder> myQueue;
+        for(int i=0; i<lists.size(); i++)
+        {
+            ListNode* curNode = lists.at(i);
+            while(curNode != NULL)
+            {
+                ListNode* tmp = curNode;
+                curNode = curNode->next;
+                tmp->next = NULL;
+                myQueue.push(tmp);
+            }
+        }
+        
+        if(myQueue.empty()) return NULL;
+        ListNode* head = myQueue.top();
+        ListNode* cur = head;
+        myQueue.pop();
+        while(!myQueue.empty())
+        {
+            cur->next = myQueue.top();
+            cur = cur->next;
+            myQueue.pop();
+        }
+        return head;        
+    }
+};
