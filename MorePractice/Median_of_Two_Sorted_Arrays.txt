@@ -1,0 +1,30 @@
+class Solution {
+public:
+    double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2) {
+        int leng = nums1.size() + nums2.size();
+        int n1 = findKthElement(nums1, nums2, 0, 0, (leng+1)/2);
+        int n2 = findKthElement(nums1, nums2, 0, 0, (leng+2)/2);
+        return (n1 + n2)/2.0;
+    }
+   
+    int findKthElement(vector<int>& nums1, vector<int>& nums2, int start1, int start2, int k){
+        if(nums1.size() > nums2.size())
+            return findKthElement(nums2, nums1, start1, start2, k);
+        if(nums1.size() == 0)
+            return nums2.at(start2+k-1);
+        if(start1 >= nums1.size())
+            return nums2.at(start2+k-1);
+        if(start2 >= nums2.size())
+            return nums1.at(start1+k-1);
+        if(k == 1)
+            return min(nums1.at(start1), nums2.at(start2));
+       
+        int m = min(k/2, min(int(nums1.size()-start1), int(nums2.size()-start2)));
+        int i = start1 + m - 1;
+        int j = start2 + m - 1;
+        if(nums1.at(i) > nums2.at(j))
+            return findKthElement(nums1, nums2, start1, j+1, k-m);
+        else
+            return findKthElement(nums1, nums2, i+1, start2, k-m);
+    }
+};
