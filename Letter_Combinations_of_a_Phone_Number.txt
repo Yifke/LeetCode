@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string letters [10] = {"", "", "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz"};
+    vector<string> sol;
+    vector<string> letterCombinations(string digits) {
+        if(digits.length() == 0)
+            return sol;
+        findString("", digits);
+        return sol;
+    }
+    
+    void findString(string str, string digits){
+        if(digits.length() == 0)
+        {
+            sol.push_back(str);
+            return;
+        }
+        
+        int i = digits.at(0) - '0';
+        string letter = letters[i];
+        digits = digits.substr(1, digits.length()-1);
+        for(int j = 0; j < letter.length(); j++)
+            findString(str + letter.at(j), digits);
+    }
+};
