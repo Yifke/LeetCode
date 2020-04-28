@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+        if(nums.size() == 0)    return -1;
+        return findIdx(nums, 0, nums.size()-1, target);
+    }
+    
+    int findIdx(vector<int>& nums, int floor, int cell, int target)
+    {
+        //printf("floor = %d, cell = %d\n", floor, cell);
+        if(floor == cell)
+        {
+            if(nums.at(floor) == target)    return floor;
+            else    return -1;
+        }
+        else
+        {
+            int tmp = (floor + cell)/2;
+            if(nums.at(floor) <= nums.at(tmp))
+            {
+                if(nums.at(floor) <= target && target <= nums.at(tmp))
+                    return findIdx(nums, floor, tmp, target);
+                else
+                    return findIdx(nums, tmp+1, cell, target);
+            }
+            else
+            {
+                if(nums.at(tmp+1) <= target && target <= nums.at(cell))
+                    return findIdx(nums, tmp+1, cell, target);
+                else
+                    return findIdx(nums, floor, tmp, target);
+            }
+        }
+    }
+};
