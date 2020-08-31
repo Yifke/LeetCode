@@ -15,20 +15,9 @@ public:
             return head;
         ListNode* first = head;
         ListNode* second = head->next;
-        head = swap(first, second);
-
-        while(first->next != NULL && first->next->next != NULL)
-        {
-            first->next = swap(first->next, first->next->next);
-            first = first->next->next;
-        }
-        
-        return head;
-    }
-    
-    ListNode* swap(ListNode* L1, ListNode* L2){
-        L1->next = L2->next;
-        L2->next = L1;
-        return L2;
+        first->next = second->next;
+        second->next = first;
+        first->next = swapPairs(first->next);
+        return second;
     }
 };
